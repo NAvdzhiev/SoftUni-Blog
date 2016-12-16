@@ -1,0 +1,7 @@
+<form class="blogger" action="{{ path('SoftUniBlogBundle_comment_create', { 'article_id' : comment.articles.id } ) }}" method="post" >
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>
