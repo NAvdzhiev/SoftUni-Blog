@@ -13,7 +13,7 @@ p {
   margin: 30px 0;
 }
 p a {
-  text-decoration: underline;
+  text-decoration: none;
 }
 h1,
 h2,
@@ -82,12 +82,13 @@ hr.small {
     color: rgba(255, 255, 255, 0.8);
   }
   .navbar-custom .nav li a {
-    color: white;
+    color: #777777;
     padding: 20px;
   }
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
-    color: rgba(255, 255, 255, 0.8);
+    color: #555555;
+    background-color: #e7e7e7;
   }
 }
 @media only screen and (min-width: 1170px) {
@@ -214,6 +215,13 @@ hr.small {
     font-size: 30px;
   }
 }
+
+.comments { clear: both; margin-top: 40px;}
+.comments .odd { background: #eee; }
+.comments .comment { padding: 20px; }
+.comments .comment p { margin-bottom: 0; }
+.comments h3 { background: #eee; padding: 10px; font-size: 20px; margin-bottom: 20px; clear: both; }
+.comments .previous-comments { margin-bottom: 20px; }
 .post-preview > a {
   color: #333333;
 }
@@ -315,7 +323,7 @@ footer .copyright {
   -ms-transition: top 0.3s ease,opacity 0.3s ease;
   transition: top 0.3s ease,opacity 0.3s ease;
 }
-.floating-label-form-group::not(:first-child) {
+.floating-label-form-group:not(:first-child) {
   padding-left: 14px;
   border-left: 1px solid #eeeeee;
 }
@@ -374,8 +382,24 @@ form .row:first-child .floating-label-form-group {
 .pager .disabled > span {
   color: #777777;
   background-color: #333333;
-  cursor: not-allowed;
-}
+  cursor: not-allowed;}
+
+.sidebar .section { margin-bottom: 20px; }
+.sidebar h3 { line-height: 1.2em; font-size: 20px; margin-bottom: 10px; font-weight: normal; background: #eee; padding: 5px;  }
+.sidebar p { line-height: 1.5em; margin-bottom: 20px; }
+.sidebar ul { list-style: none }
+.sidebar ul li { line-height: 1.5em }
+.sidebar .small { font-size: 12px; }
+.sidebar .comment p { margin-bottom: 5px; }
+.sidebar .comment { margin-bottom: 10px; padding-bottom: 10px; }
+.sidebar .tags { font-weight: bold; }
+.sidebar .tags span { color: #000; font-size: 12px; }
+.sidebar .tags .weight-1 { font-size: 12px; }
+.sidebar .tags .weight-2 { font-size: 15px; }
+.sidebar .tags .weight-3 { font-size: 18px; }
+.sidebar .tags .weight-4 { font-size: 21px; }
+.sidebar .tags .weight-5 { font-size: 24px; }
+
 ::-moz-selection {
   color: white;
   text-shadow: none;
