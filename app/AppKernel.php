@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             // uncomment the following line if your application sends emails
             // new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new SoftUniBlogBundle\SoftUniBlogBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         ];
 
         // Some bundles are only used while developing the application or during

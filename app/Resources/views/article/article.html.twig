@@ -10,6 +10,12 @@
                     </header>
 
                     <p>
+                        <a href="{{ asset('uploads/articles/' ~ article.coverPhoto) }}">
+                            <img src="{{ asset('uploads/articles/' ~ article.coverPhoto) }}"/>
+                        </a>
+                    </p>
+
+                    <p>
                         {{ article.content }}
                     </p>
 
@@ -18,16 +24,31 @@
                     </small>
 
                     <footer>
+                        <div class="pull-left">
+                            {% for tag in article.tags  %}
+                                <a class="btn btn-default btn-xs" href="#">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
                         <div class="pull-right">
 
-
+                            {% if app.getUser() and (app.getUser().isAuthor(article) or app.getUser().isAdmin())  %}
                                 <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">Edit</a>
                                 <a class="btn btn-danger btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">Delete</a>
-
+                            {% endif %}
 
                             <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
                         </div>
+
+                        <section class="comments" id="comments">
+                            <section class="previous-comments">
+                                <h3>Comments</h3>
+                                {% include 'comment/index.html.twig' with { 'comments': comments } %}
+                            </section>
+                            <h3>Add Comment</h3>
+                                {{ render (url('SoftUniBlogBundle_comment_new',{'article_id': article.id})) }}
+                        </section>
                     </footer>
+
                 </article>
             </div>
         </div>

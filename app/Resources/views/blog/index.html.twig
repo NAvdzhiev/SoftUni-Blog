@@ -13,16 +13,28 @@
                         <p>
                             {{ article.summary }}
                         </p>
+                        <p>
+                            {% for tag in article.tags %}
+                                <a class="btn btn-default btn-xs"
+                                   href="{{ path('articles_with_tag', {'name': tag.name}) }}">{{ tag.name }}</a>
+                            {% endfor %}
+                        </p>
 
                         <small class="author">
                             {{ article.author }}
                         </small>
 
                         <footer>
+                            <div class="pull-left">
+                                <p>Comments: {{ article.comments|length }}</p>
+                                <p>Posted at {{ article.dateAdded|date('h:i A, l, F j, Y') }}</p>
+                            </div>
+
                             <div class="pull-right">
                                 <a class="btn btn-default btn-xs"
                                    href="{{ path('article_view', {'id': article.id}) }}">Read more &raquo;</a>
                             </div>
+
                         </footer>
                     </article>
                 </div>

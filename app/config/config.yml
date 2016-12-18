@@ -17,6 +17,7 @@ parameters:
     # This parameter defines the codes of the locales (languages) enabled in the application
     locale: en
     app.notifications.email_sender: anonymous@example.com
+    softuni_blog.articles.latest_article_limit: 10
 
 # Basic configuration for the Symfony framework features
 framework:
@@ -74,6 +75,8 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
+
+
 # Swiftmailer Configuration (used to send emails)
 # instead of configuring the mailer credentials in this file, we pull
 # them from the app/config/parameters.yml file. The reason is that config.yml
@@ -86,3 +89,9 @@ doctrine:
 #     username:  "%mailer_user%"
 #     password:  "%mailer_password%"
 #     spool:     { type: memory }
+vich_uploader:
+    db_driver: orm
+parameters:
+    articles_directory: 'C:\Users\DELL\Desktop\PHP-Blog\Blog\web\uploads\articles'
+
+
