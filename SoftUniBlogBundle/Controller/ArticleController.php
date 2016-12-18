@@ -18,6 +18,37 @@ class ArticleController extends Controller
 {
 
 
+    /**
+     * @param $em EntityManager
+     * @param $tagsString String
+     *
+     * @return ArrayCollection
+     */
+    public function getTags($em, $tagsString)
+    {
+        $tags = explode(",", $tagsString);
+        $tagRepo = $this->getDoctrine()->getRepository(Tag::class);
+        $tagsToSave = new ArrayCollection();
+
+        foreach ($tags as $tagName){
+
+            $tagName = trim($tagName);
+            $tag = $tagRepo->findOneBy(['name' => $tagName]);
+
+            if ($tag == null){
+                $tag = new Tag();
+                $tag->setName($tagName);
+                $em->persist($tag);
+
+            }
+
+            $tagsToSave->add($tag);
+        }
+
+        return $tagsToSave;
+
+    }
+
 
     /**
      * @param Request $request
@@ -90,7 +121,7 @@ class ArticleController extends Controller
     {
 
 
-        $article = $this->getDoctrine()->getRepository('SoftUniBlogBundle:Article')->find($id);
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -198,6 +229,7 @@ class ArticleController extends Controller
 
         $tagsString = implode(', ', $tags->toArray());
 
+
         $currentUser = $this->getUser();
 
         if(!$currentUser->isAuthor($article) && !$currentUser->isAdmin())
@@ -205,13 +237,18 @@ class ArticleController extends Controller
             return $this->redirectToRoute("blog_index");
         }
 
+
+
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+
+
             $em = $this->getDoctrine()->getManager();
+
             $em->remove($article);
             $em->flush();
 
@@ -223,39 +260,11 @@ class ArticleController extends Controller
         return $this->render('article/delete.html.twig', array(
             'article' => $article,
             'form' => $form->createView(),
-            'tags' => $tagsString));
+            'tags' => $tagsString,
+        ));
     }
 
-    /**
-     * @param $em EntityManager
-     * @param $tagsString String
-     *
-     * @return ArrayCollection
-     */
-    public function getTags($em, $tagsString)
-    {
-        $tags = explode(",", $tagsString);
-        $tagRepo = $this->getDoctrine()->getRepository(Tag::class);
-        $tagsToSave = new ArrayCollection();
 
-        foreach ($tags as $tagName){
-
-            $tagName = trim($tagName);
-            $tag = $tagRepo->findOneBy(['name' => $tagName]);
-
-            if ($tag == null){
-                $tag = new Tag();
-                $tag->setName($tagName);
-                $em->persist($tag);
-
-            }
-
-            $tagsToSave->add($tag);
-        }
-
-        return $tagsToSave;
-
-    }
 
 
 

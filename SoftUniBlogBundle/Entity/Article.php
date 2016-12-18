@@ -102,6 +102,7 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="articles")
+     * @ORM\JoinColumn(onDelete= "CASCADE")
      */
     private $comments;
 

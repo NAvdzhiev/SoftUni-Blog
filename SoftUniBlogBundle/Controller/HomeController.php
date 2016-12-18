@@ -10,22 +10,53 @@ use SoftUniBlogBundle\Entity\Article;
 use SoftUniBlogBundle\Entity\Tag;
 use SoftUniBlogBundle\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class HomeController extends Controller
 {
     /**
-     * @Route("/", name="blog_index")
+     * @Route("/", name="blog_index", defaults={"page" = 1})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
         /**
          * @var $articles = Article[]
          */
-        $articles = $this->getDoctrine()->getRepository(Article::class)->findBy(array(),array('dateAdded' => 'DESC'));
+        $articles = $this->getDoctrine()->getRepository(Article::class)->
+        findBy(array(),array('dateAdded' => 'DESC'));
 
-        return $this->render('blog/index.html.twig', ['articles' => $articles]);
+        /**
+         * @var paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $articles,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 4)
+        );
+
+
+
+
+        return $this->render('blog/index.html.twig', [
+            'articles' => $result,
+
+        ]);
     }
+
+
+
+
+
+
 
 
 }

@@ -1,9 +1,8 @@
 <?php
 
 namespace SoftUniBlogBundle\Repository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
-use SoftUniBlogBundle\Entity\Tag;
+
+
 
 /**
  * ArticleRepository
@@ -13,5 +12,6 @@ use SoftUniBlogBundle\Entity\Tag;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+
 
 }
