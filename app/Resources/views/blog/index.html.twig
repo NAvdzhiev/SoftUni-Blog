@@ -40,5 +40,8 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="pagerfanta">
+            {{ knp_pagination_render(articles) }}
+        </div>
     </div>
 {% endblock %}

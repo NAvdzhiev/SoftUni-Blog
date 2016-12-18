@@ -3,7 +3,7 @@
 {% block main %}
     <div class="container body-content span=8 offset=2">
         <div class="well">
-            <form class="form-horizontal" action="{{ path('article_edit', {id: article.id}) }}" method="POST">
+            <form enctype="multipart/form-data" class="form-horizontal" action="{{ path('article_edit', {id: article.id}) }}" method="POST">
                 <fieldset>
                     <legend>Edit Post</legend>
 
