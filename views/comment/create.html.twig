@@ -1,0 +1,7 @@
+
+{% block title %}Add Comment{% endblock%}
+
+{% block main %}
+    <h1>Add comment for article post "{{ comment.articles.title }}"</h1>
+    {% include 'comment/form.html.twig' with { 'form': form } %}
+{% endblock %}
