@@ -2,8 +2,13 @@
 
 namespace SoftUniBlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -40,8 +45,65 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(min=6, minMessage = "Your first name must be at least {{ 6 }} characters long")
      */
     private $password;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="SoftUniBlogBundle\Entity\Article", mappedBy="author")
+     */
+    private $articles;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ManyToMany(targetEntity="SoftUniBlogBundle\Entity\Role")
+     * @JoinTable(name="users_roles",
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
+     *      )
+     */
+    private $roles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @param \SoftUniBlogBundle\Entity\Role $role
+     *
+     * @return User
+     */
+    public function addRole(Role $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * @param \SoftUniBlogBundle\Entity\Article $article
+     *
+     * @return User
+     */
+    public function addPost(Article $article)
+    {
+        $this->articles[] = $article;
+
+        return $this;
+    }
 
 
     /**
@@ -144,7 +206,13 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        $stringRoles = [];
+        foreach ($this->roles as $role)
+        {
+            /** @var $role Role */
+            $stringRoles[] = is_string($role) ? $role : $role->getRole();
+        }
+        return $stringRoles;
     }
 
     /**
@@ -179,10 +247,37 @@ class User implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
-	
-	function __toString()
+
+    function __toString()
     {
         return $this->fullName;
+    }
+
+    /**
+     * @param Article $article
+     * @return bool
+     */
+    public function isAuthor(Article $article)
+    {
+        return $article->getAuthorId() == $this->getId();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return in_array("ROLE_ADMIN", $this->getRoles());
+    }
+
+    /**
+     * @param array $roles
+     * @return $this
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+        return $this;
     }
 }
 
