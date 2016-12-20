@@ -2,6 +2,8 @@
 
 namespace SoftUniBlogBundle\Repository;
 
+
+
 /**
  * ArticleRepository
  *
@@ -10,4 +12,5 @@ namespace SoftUniBlogBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

@@ -97,6 +97,7 @@ class ArticleController extends Controller
             $article->setCoverPhoto($fileName);
             // ... persist the $product variable or any other work
 
+
             $em->persist($article);
             $em->flush();
 

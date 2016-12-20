@@ -10,6 +10,7 @@ use SoftUniBlogBundle\Form\UserType;
 use SoftUniBlogBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserController extends Controller
 {
@@ -33,6 +34,7 @@ class UserController extends Controller
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
+
 
             // 4) save the User!
             $em = $this->getDoctrine()->getManager();

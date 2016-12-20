@@ -2,7 +2,11 @@
 
 namespace SoftUniBlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use SebastianBergmann\CodeCoverage\Report\Text;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article
@@ -62,9 +66,67 @@ class Article
      */
     private $author;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="category_id", type="integer")
+     */
+    private $categoryId;
+
+    /**
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="SoftUniBlogBundle\Entity\Category", inversedBy="articles")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="cascade")
+     */
+    private $category;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="SoftUniBlogBundle\Entity\Tag", inversedBy="articles")
+     * @ORM\JoinTable(name="articles_tags",
+     *     joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *     )
+     */
+    private $tags;
+
+    /**
+     * @var UploadedFile
+     *
+     * @ORM\Column(type="string")
+     * @Assert\File(mimeTypes={"image/jpeg"})
+     */
+    private $coverPhoto;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="articles")
+     * @ORM\JoinColumn(onDelete= "CASCADE")
+     */
+    private $comments;
+
+    /**
+     * @var text
+     */
+    private $articles;
+
+
+
+
+
     public function __construct()
     {
+        $this->comments = new ArrayCollection();
+
         $this->dateAdded = new \DateTime('now');
+        $this->tags = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+
     }
 
     /**
@@ -124,7 +186,7 @@ class Article
      */
     private function setSummary()
     {
-        $this->summary = substr($this->getContent(), 0, strlen($this->getContent()) / 2) . "...";
+        $this->summary = substr($this->getContent(), 0, strlen($this->getContent()) / 8) . "...";
     }
 
 
@@ -209,5 +271,129 @@ class Article
     {
         return $this->dateAdded;
     }
+
+    /**
+     * @return int
+     */
+    public function getCategoryId(): int
+    {
+        return $this->categoryId;
+    }
+
+    /**
+     * @param int $categoryId
+     */
+    public function setCategoryId(int $categoryId)
+    {
+        $this->categoryId = $categoryId;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags(ArrayCollection $tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getCoverPhoto()
+    {
+        return $this->coverPhoto;
+    }
+
+    public function setCoverPhoto( $coverPhoto)
+    {
+        $this->coverPhoto = $coverPhoto;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param Comment $comments
+     */
+    public function addComment(Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param Comment $comments
+     */
+    public function addComments(Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * @return Text
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @param Text $articles
+     */
+    public function setArticles(Text $articles)
+    {
+        $this->articles = $articles;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
 

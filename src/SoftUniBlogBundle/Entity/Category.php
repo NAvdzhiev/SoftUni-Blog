@@ -33,6 +33,7 @@ class Category
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="SoftUniBlogBundle\Entity\Article", mappedBy="category")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
     private $articles;
 
@@ -86,7 +87,7 @@ class Category
     /**
      * @return ArrayCollection
      */
-    public function getArticles(): ArrayCollection
+    public function getArticles()
     {
         return $this->articles;
     }

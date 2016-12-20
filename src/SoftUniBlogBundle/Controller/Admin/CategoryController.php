@@ -102,8 +102,8 @@ class CategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            foreach ($category->getArticles() as $article){
-                $em->remove($article);
+            foreach ($category->getArticles() as $articles){
+                $em->remove($articles);
             }
 
             $em->remove($category);

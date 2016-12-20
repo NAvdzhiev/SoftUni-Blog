@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -66,6 +67,7 @@ class User implements UserInterface
      *      )
      */
     private $roles;
+
 
     public function __construct()
     {
@@ -279,5 +281,9 @@ class User implements UserInterface
         $this->roles = $roles;
         return $this;
     }
+
+
+
+
 }
 
