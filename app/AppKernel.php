@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new SoftUniBlogBundle\SoftUniBlogBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         ];
 
         // Some bundles are only used while developing the application or during
