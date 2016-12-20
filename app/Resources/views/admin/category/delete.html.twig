@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
                             <a class="btn btn-default" href="{{ path('admin_categories') }}">Cancel</a>
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                         </div>
                     </div>
                 </fieldset>

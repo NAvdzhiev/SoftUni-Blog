@@ -3,7 +3,7 @@
 {% block main %}
     <div class="container body-content">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <article>
                     <header>
                         <h2>{{ article.title }}</h2>
@@ -11,17 +11,17 @@
 
                     <p>
                         <a href="{{ asset('uploads/articles/' ~ article.coverPhoto) }}">
-                            <img src="{{ asset('uploads/articles/' ~ article.coverPhoto) }}"/>
+                            <img class="image" src="{{ asset('uploads/articles/' ~ article.coverPhoto) }}"/>
                         </a>
                     </p>
 
-                    <p>
+                    <article class="article">
                         {{ article.content }}
-                    </p>
+                    </article>
 
-                    <small class="author">
-                        {{ article.author }}
-                    </small>
+                    <p class="author">
+                       By {{ article.author }}
+                    </p>
 
                     <footer>
                         <div class="pull-left">
