@@ -3,18 +3,36 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+
 body {
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: "Lora", "Times New Roman", serif;
   font-size: 20px;
-  color: #333333;
+  color: #f2f2f2;
+  background: url("bg.jpg") no-repeat;
+  background-size: cover;
 }
 p {
+  font-family: Lora;
   line-height: 1.5;
   margin: 30px 0;
   cursor: default;
 }
 p a {
   text-decoration: none;
+}
+
+legend{
+  font-family: "Open Sans";
+  font-weight: 600;
+  color: #f2f2f2;
+}
+
+.well{
+  background-color: #2d2d2d;
+}
+
+.form-horizontal{
+  background-color: #2d2d2d;
 }
 
 span{
@@ -26,11 +44,66 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", sans-serif;
   font-weight: 800;
   cursor: pointer;
 
 }
+
+.author{
+  font-family: Lora;
+  font-style: italic;
+  font-size: 16px;
+}
+
+
+.summary{
+  font-family: "Open Sans";
+  font-weight: 300;
+  font-size: 24px;
+
+}
+
+.article{
+  font-family: "Open Sans";
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.meta-info{
+  font-family: Lora;
+  font-style: italic;
+  font-size: 16px;
+
+}
+
+.image{
+  display: block;
+  margin: auto;
+}
+
+.btn-default{
+  background: #2d2d2d;
+  color: #f2f2f2;
+}
+
+.read{
+  margin-top: 20px;
+  color: #333;
+  background: #f2f2f2;
+}
+
+h1 a{
+  color: #FFFFFF;
+}
+
+h1 a:hover,
+h1 a:focus,
+h1 a:active{
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 a {
   color: #333333;
   cursor: pointer;
@@ -38,6 +111,7 @@ a {
 a:hover,
 a:focus {
   color: #0085A1;
+  text-decoration: none;
 }
 a img:hover,
 a img:focus {
@@ -225,10 +299,11 @@ hr.small {
 }
 
 .comments { clear: both; margin-top: 40px;}
-.comments .odd { background: #eee; }
+.comments .odd { background: #2d2d2d; }
 .comments .comment { padding: 20px; }
-.comments .comment p { margin-bottom: 0; }
-.comments h3 { background: #eee; padding: 10px; font-size: 20px; margin-bottom: 20px; clear: both; }
+.comments .comment .posted { margin-bottom: 0; font-weight: 600;}
+.comments .comment .commented {margin-bottom: 0; font-family: "Open Sans"; font-weight: 100; font-size: 20px;}
+.comments h3 { background: #861919; padding: 10px; font-size: 20px; margin-bottom: 20px; clear: both; }
 .comments .previous-comments { margin-bottom: 20px; }
 .post-preview > a {
   color: #333333;
